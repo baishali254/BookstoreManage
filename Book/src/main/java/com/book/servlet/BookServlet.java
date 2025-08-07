@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class BookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BookDAO bookDAO = new BookDAO();
-   // private ObjectMapper objectMapper = new ObjectMapper();
+   
 	private void setCorsHeaders(HttpServletResponse response) {
 	    response.setHeader("Access-Control-Allow-Origin", "*");
 	    response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");

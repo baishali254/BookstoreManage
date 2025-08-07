@@ -29,11 +29,6 @@ public class AuthFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
-        // Set CORS headers
-        res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
-        res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
-        res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        res.setHeader("Access-Control-Allow-Credentials", "true");
 
         // Allow OPTIONS requests for CORS preflight
         if ("OPTIONS".equalsIgnoreCase(req.getMethod())) {
