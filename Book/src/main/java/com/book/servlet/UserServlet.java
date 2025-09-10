@@ -28,8 +28,6 @@ public class UserServlet extends HttpServlet {
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	         throws ServletException, IOException {
 	 	
-	 	setCORSHeaders(response);
-	 	
 	 	
 	     response.setContentType("application/json");
 	     
@@ -62,18 +60,15 @@ public class UserServlet extends HttpServlet {
 	    	 out.print(json);
 	     }
 	}
-	 @Override
-	 protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    
+ @Override
+	 protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	    
 	     response.setStatus(HttpServletResponse.SC_OK);
 	 }
 
 
 	 @Override
 	 protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	         throws ServletException, IOException {
-	 	setCORSHeaders(response);
-	 	
+	         throws ServletException, IOException {	 	
 	 	
 	     response.setContentType("application/json");
 	     PrintWriter out = response.getWriter();
@@ -95,7 +90,6 @@ public class UserServlet extends HttpServlet {
 	 @Override
 	 protected void doPut(HttpServletRequest request, HttpServletResponse response)
 	         throws ServletException, IOException {
-	 	setCORSHeaders(response);
 	     response.setContentType("application/json");
 	     PrintWriter out = response.getWriter();
 	     try {
@@ -116,16 +110,10 @@ public class UserServlet extends HttpServlet {
 	 @Override
 	 protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 	         throws ServletException, IOException {
-	 	setCORSHeaders(response);
 	     int id = Integer.parseInt(request.getParameter("id"));
 	     userDAO.deleteUser(id);
 	     response.setStatus(200);
 	 }
-	 private void setCORSHeaders(HttpServletResponse response) {
-	     response.setHeader("Access-Control-Allow-Origin", "*"); // Specify exact origin
-	     response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
-	     response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-	     response.setHeader("Access-Control-Allow-Credentials", "true");  // Allow credentials (cookies)
-	}
+
 
 }

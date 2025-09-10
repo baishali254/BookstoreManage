@@ -22,22 +22,10 @@ import jakarta.servlet.http.HttpServletResponse;
 public class BookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BookDAO bookDAO = new BookDAO();
-   
-	private void setCorsHeaders(HttpServletResponse response) {
-	    response.setHeader("Access-Control-Allow-Origin", "*");
-	    response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
-	    response.setHeader("Access-Control-Allow-Headers", "Content-Type");
-	}
-
-	private void handlePreFlightRequest(HttpServletRequest request, HttpServletResponse response) {
-	    if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-	        response.setStatus(HttpServletResponse.SC_OK);
-	    }
-	}
+ 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    setCorsHeaders(response);
-	    handlePreFlightRequest(request, response);
+
 	    response.setContentType("application/json");
 	    PrintWriter out = response.getWriter();
 
@@ -56,49 +44,48 @@ public class BookServlet extends HttpServlet {
 	            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid book ID");
 	            return;
 	        }
-	    } else {
-	        int page = 1;
-	        int limit = 10;
-	        String pageStr = request.getParameter("page");
-	        String limitStr = request.getParameter("limit");
-	        if (pageStr != null && !pageStr.isEmpty()) {
-	            page = Integer.parseInt(pageStr);
-	        }
-	        if (limitStr != null && !limitStr.isEmpty()) {
-	            limit = Integer.parseInt(limitStr);
-	        }
-	        try {
-	            List<Book> books = bookDAO.getBooks(page, limit);
-	            int totalCount = bookDAO.getBooksCount();
-	            Map<String, Object> resultMap = new HashMap<>();
-	            resultMap.put("books", books);
-	            resultMap.put("totalCount", totalCount);
-	            resultMap.put("page", page);
-	            resultMap.put("limit", limit);
-	            Gson gson = new Gson();
-	            String json = gson.toJson(resultMap);
-	            out.print(json);
-	            out.flush();
-	        } catch (Exception e) {
-	            response.setStatus(500);
-	            out.print("Error processing JSON");
-	            out.flush();
-	        }
-	    }
+	    } 
+//	    else {
+//	        int page = 1;
+//	        int limit = 10;
+//	        String pageStr = request.getParameter("page");
+//	        String limitStr = request.getParameter("limit");
+//	        if (pageStr != null && !pageStr.isEmpty()) {
+//	            page = Integer.parseInt(pageStr);
+//	        }
+//	        if (limitStr != null && !limitStr.isEmpty()) {
+//	            limit = Integer.parseInt(limitStr);
+//	        }
+//	        try {
+//	            List<Book> books = bookDAO.getBooks(page, limit);
+//	            int totalCount = bookDAO.getBooksCount();
+//	            Map<String, Object> resultMap = new HashMap<>();
+//	            resultMap.put("books", books);
+//	            resultMap.put("totalCount", totalCount);
+//	            resultMap.put("page", page);
+//	            resultMap.put("limit", limit);
+//	            Gson gson = new Gson();
+//	            String json = gson.toJson(resultMap);
+//	            out.print(json);
+//	            out.flush();
+//	        } catch (Exception e) {
+//	            response.setStatus(500);
+//	            out.print("Error processing JSON");
+//	            out.flush();
+//	        }
+//	    }
 	}
-    @Override
-    protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	  setCorsHeaders(response);
-    	    handlePreFlightRequest(request, response);
-        response.setStatus(HttpServletResponse.SC_OK);
+ @Override
+   protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+   	  
+       response.setStatus(HttpServletResponse.SC_OK);
     }
 
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	  setCorsHeaders(response);
-    	    handlePreFlightRequest(request, response);
+    	 
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         try {
@@ -120,8 +107,7 @@ public class BookServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	  setCorsHeaders(response);
-    	    handlePreFlightRequest(request, response);
+
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         try {
@@ -143,15 +129,6 @@ public class BookServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        // Enable CORS
-       
-    	  setCorsHeaders(response);
-    	    handlePreFlightRequest(request, response);
-        // Check for pre-flight request (OPTIONS)
-        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-            response.setStatus(HttpServletResponse.SC_OK);
-            return;
-        }
 
         // Proceed with your regular DELETE logic
         int id = Integer.parseInt(request.getParameter("id"));

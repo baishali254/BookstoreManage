@@ -13,59 +13,59 @@ import java.util.Map;
 import com.book.model.Book;
 
 public class BookDAO {
-	public List<Book> getBooks(int page, int limit) {
-        List<Book> books = new ArrayList<>();
-        String query = "SELECT * FROM books LIMIT ? OFFSET ?";
-        try {
-            Connection connection = DBConnection.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, limit);
-            statement.setInt(2, (page - 1) * limit);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    Book book = new Book();
-                    book.setId(resultSet.getInt("id"));
-                    book.setTitle(resultSet.getString("title"));
-                    book.setAuthor(resultSet.getString("author"));
-                    book.setPrice(resultSet.getDouble("price"));
-                    book.setIsbn(resultSet.getString("isbn"));
-                    book.setPublisher(resultSet.getString("publisher"));
-                    book.setPublicationDate(resultSet.getString("publicationDate"));
-                    books.add(book);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return books;
-    }
-
-    public Map<String, Object> getPaginatedBooks(int page, int limit) {
-        Map<String, Object> resultMap = new HashMap<>();
-        List<Book> books = getBooks(page, limit);
-        int totalCount = getBooksCount();
-        resultMap.put("books", books);
-        resultMap.put("totalCount", totalCount);
-        resultMap.put("page", page);
-        resultMap.put("limit", limit);
-        return resultMap;
-    }
-
-    public int getBooksCount() {
-        String query = "SELECT COUNT(*) FROM books";
-        try {
-            Connection connection = DBConnection.getConnection();
-            Statement statement = connection.createStatement();
-            try (ResultSet resultSet = statement.executeQuery(query)) {
-                if (resultSet.next()) {
-                    return resultSet.getInt(1);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
+//	public List<Book> getBooks(int page, int limit) {
+//        List<Book> books = new ArrayList<>();
+//        String query = "SELECT * FROM books LIMIT ? OFFSET ?";
+//        try {
+//            Connection connection = DBConnection.getConnection();
+//            PreparedStatement statement = connection.prepareStatement(query);
+//            statement.setInt(1, limit);
+//            statement.setInt(2, (page - 1) * limit);
+//            try (ResultSet resultSet = statement.executeQuery()) {
+//                while (resultSet.next()) {
+//                    Book book = new Book();
+//                    book.setId(resultSet.getInt("id"));
+//                    book.setTitle(resultSet.getString("title"));
+//                    book.setAuthor(resultSet.getString("author"));
+//                    book.setPrice(resultSet.getDouble("price"));
+//                    book.setIsbn(resultSet.getString("isbn"));
+//                    book.setPublisher(resultSet.getString("publisher"));
+//                    book.setPublicationDate(resultSet.getString("publicationDate"));
+//                    books.add(book);
+//                }
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return books;
+//    }
+//
+//    public Map<String, Object> getPaginatedBooks(int page, int limit) {
+//        Map<String, Object> resultMap = new HashMap<>();
+//        List<Book> books = getBooks(page, limit);
+//        int totalCount = getBooksCount();
+//        resultMap.put("books", books);
+//        resultMap.put("totalCount", totalCount);
+//        resultMap.put("page", page);
+//        resultMap.put("limit", limit);
+//        return resultMap;
+//    }
+//
+//    public int getBooksCount() {
+//        String query = "SELECT COUNT(*) FROM books";
+//        try {
+//            Connection connection = DBConnection.getConnection();
+//            Statement statement = connection.createStatement();
+//            try (ResultSet resultSet = statement.executeQuery(query)) {
+//                if (resultSet.next()) {
+//                    return resultSet.getInt(1);
+//                }
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return 0;
+//    }
 
     public Book getBook(int id) {
         Book book = null;
