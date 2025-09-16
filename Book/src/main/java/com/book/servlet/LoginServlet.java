@@ -23,22 +23,10 @@ public class LoginServlet extends HttpServlet {
     private UserDAO userDAO = new UserDAO();
     private Gson gson = new Gson();
 
-    private void setCORSHeaders(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5500");  // Frontend origin
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-    }
-
-    @Override
-    protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        setCORSHeaders(response);
-        response.setStatus(HttpServletResponse.SC_OK);
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        setCORSHeaders(response);
+        
         response.setContentType("application/json");
 
         try {
@@ -51,15 +39,7 @@ public class LoginServlet extends HttpServlet {
                 System.out.println("Session ID: " + session.getId());
                 System.out.println("User stored in session: " + existingUser.getUsername());
 
-                // Set SameSite=None and Secure cookie properties for cross-origin requests
-//                Cookie jsessionCookie = new Cookie("JSESSIONID", session.getId());
-//                jsessionCookie.setPath("/"); // Make the cookie available to the entire application
-//                jsessionCookie.setHttpOnly(true); // Prevent JavaScript access to the session cookie
-//                jsessionCookie.setSecure(true); // Make the cookie secure (HTTPS only)
-//                jsessionCookie.setSameSite("None"); // Allow cross-site cookie sending
-//                response.addCookie(jsessionCookie); // Add the cookie to the response
                 
-                // Manually set the SameSite=None and Secure cookie attributes
                 String jsessionId = session.getId();
                 String cookieHeader = "JSESSIONID=" + jsessionId + "; Path=/; HttpOnly; Secure; SameSite=None";
                 response.setHeader("Set-Cookie", cookieHeader);
