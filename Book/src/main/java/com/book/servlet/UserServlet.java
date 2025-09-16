@@ -60,11 +60,7 @@ public class UserServlet extends HttpServlet {
 	    	 out.print(json);
 	     }
 	}
- @Override
-	 protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	    
-	     response.setStatus(HttpServletResponse.SC_OK);
-	 }
-
+ 
 
 	 @Override
 	 protected void doPost(HttpServletRequest request, HttpServletResponse response)

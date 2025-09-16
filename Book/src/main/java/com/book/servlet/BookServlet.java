@@ -44,42 +44,8 @@ public class BookServlet extends HttpServlet {
 	            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid book ID");
 	            return;
 	        }
-	    } 
-//	    else {
-//	        int page = 1;
-//	        int limit = 10;
-//	        String pageStr = request.getParameter("page");
-//	        String limitStr = request.getParameter("limit");
-//	        if (pageStr != null && !pageStr.isEmpty()) {
-//	            page = Integer.parseInt(pageStr);
-//	        }
-//	        if (limitStr != null && !limitStr.isEmpty()) {
-//	            limit = Integer.parseInt(limitStr);
-//	        }
-//	        try {
-//	            List<Book> books = bookDAO.getBooks(page, limit);
-//	            int totalCount = bookDAO.getBooksCount();
-//	            Map<String, Object> resultMap = new HashMap<>();
-//	            resultMap.put("books", books);
-//	            resultMap.put("totalCount", totalCount);
-//	            resultMap.put("page", page);
-//	            resultMap.put("limit", limit);
-//	            Gson gson = new Gson();
-//	            String json = gson.toJson(resultMap);
-//	            out.print(json);
-//	            out.flush();
-//	        } catch (Exception e) {
-//	            response.setStatus(500);
-//	            out.print("Error processing JSON");
-//	            out.flush();
-//	        }
-//	    }
+	    }
 	}
- @Override
-   protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-   	  
-       response.setStatus(HttpServletResponse.SC_OK);
-    }
 
 
     @Override
